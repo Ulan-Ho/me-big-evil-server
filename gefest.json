@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "gefest-415404",
+  "private_key_id": "e196b4c7920a164ce9e6e51763505a55c8f66c79",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCy9QOpSoGTsEvE\nSsfHINfuuG//9vpQ0ELmTgzYljH0W+2ltqJQrzaGdl9sYyI2Ds7EpxM/HHFnChSD\n9w/2u9Nw/fnqbsAjepkBwG6gfWMtuMLcV9z7IyIL86GrMd0gVb4hRNfZUaQEmhiQ\nEDwIHMqm1BBpmteR5s5cFgHsYplBtTpTZMYm0rmsLFLs7E4NuG/WpdkfI97R0aPg\nTEmCBLGNir3zjKm6HAPbjIQMO80GJEX3LfWv5htRC/PxLduuhL9wmB0ZWxvom7di\ntQq8X86Dl9elcX4wwfvQUYLvlGTxTKFBpxk1T+AmZC5KGdj3gX3sCjoWK5sxXlDX\ns+QUk6czAgMBAAECggEAFib3N48GADKsBlXdafxaTm4dSxmW/cbx6RFTTMI219FD\nVyaG7CbsQHPJtyCEXR2zIauu2bqbHQ6l4HoGS1wPveZqd8cS2LF13D4mU46B5uh+\nkoj7zUiZj9IuOoNXJIgIm5SqhXeyLnGmxbqEu9pYiZMpnvDwa1qfQ83jmg/Qec4Q\nm+tWcQceoxh2qgeGGm5fiwsHjw1WsK4mwV2OU3HapdCrLJeV94Gj3N47JwrjoOjA\n0GvvoD3qXlvSeSf5z3bhrrc4fN8QswDWkkZXLllqwbK3TyLKWGg8MDFVMSu/HhMg\nhU/aQ+OJfofIBa94cHDVd/IK0O93OywL2AGDBTarwQKBgQDkCSZiwWb9fCwQFykz\nQn2ENBgeEsEyr2GlGOtK0dyxQ3XcxJ6UIwh7CvykOoVGzfgPaXwX0vjXSDC9aqnv\n7Bru87HMBpSqoNMkSw0EMvF70GCpJl8K9UrLrDE5xkvzb0FvBSD/zplcZBg51utS\ntu/+Wm2oT9s9p4kP7UAQ93hRwQKBgQDI5xyIZm2/329Mnh9e9O62gz9fkHOYPNrk\n3uDi4xUUiwu+ktxE28VXmjwnqgOQPrFbjDQpLp/m82hmojUgRVmS90cf9AGToJDY\nCgrojWtytdHevh5IyGy9a7Hr5YyorIbIgliTsJej/dWqJtz6qn55ByBvSM5NE9Xi\nWxze4IdN8wKBgQDMY5shRwI9z69a2LeX90+zUFIRmnPKL0JRDW3QCRxLUhDxSNZu\nJpxyVJ2vwbg1h2WAwuZ0ICfkJhNxo4ofvrtBU/IX0gosiavWSuKm0dZ6SIJq+jaU\nBtn8hiE1DJSE5EJ89NboEdCJ7Dl+ljEkWU3w6DKDetgigeiq+tbCnl0cwQKBgGql\n9QmbhktC6yx7DCA2WbpddfjfD94TAAhbIHqRHZGoNnXWNEQBfoMAh0pvADFEdpYo\nmU/7Rjstn5BML3OQHPrddc5Kk8OwivOEcUH+QLnGN0DNH/p3GvJ7Bxo44zBvVaV/\nPFI6fmU5zIDk3I3ckALje55Xwdw82V+uCmduPaVtAoGBAMgm91/MS9kUjOgOZfn5\n6/kQBIF/oWLyJY7STb/YqJXfeuVjvAp1SsOMXUwM9LRieAEm7pKnof5N7lJOAThS\nnLiVaflWVyUp4Nt/X6BnmhLiMCuwWrD0airOo9j0RNvw47UZPeKk7AvEpvltJ8dx\nKpcnk8Di2EUmUGN3O8t85cnF\n-----END PRIVATE KEY-----\n",
+  "client_email": "gefest-assistant-164@gefest-415404.iam.gserviceaccount.com",
+  "client_id": "102296770007747314896",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gefest-assistant-164%40gefest-415404.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
