@@ -8,6 +8,15 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
+      interval: "monthly"
+    allow:
+      - dependency-type: "all"
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/app/index.js"
+    schedule:
       interval: "weekly"
     allow:
       - dependency-name: "express"
