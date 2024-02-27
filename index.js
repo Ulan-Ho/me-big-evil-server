@@ -10,7 +10,7 @@ app.use(cors());
 
 
 
-app.post("/bootIlyat", ( req, res) => {
+app.post("/", ( req, res) => {
     const data = req.body.data;
     NodeGoogleSheets('gefest.json', '1ffP-WgroNDZAe_quSbANlUTocbL7JSpryuq5JZm-xY4', {append: 'BootcampIlyat', 
         change: [[data['firstName'], data['email'], data['number'], new Date]]}, (data) => {
