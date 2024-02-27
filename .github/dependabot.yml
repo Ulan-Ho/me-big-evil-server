@@ -8,6 +8,8 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     allow:
-      - dependency-type: "all"
+      - dependency-name: "express"
+      - dependency-name: "cors"
+      - dependency-name: "googleapis"
