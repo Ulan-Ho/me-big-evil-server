@@ -15,16 +15,21 @@ app.post("/", ( req, res) => {
     NodeGoogleSheets('gefest.json', '1ffP-WgroNDZAe_quSbANlUTocbL7JSpryuq5JZm-xY4', {append: 'BootcampIlyat', 
         change: [[data['firstName'], data['email'], data['number'], new Date]]}, (data) => {
         console.log(data);
+	res.json({ success: true, message: 'Data added successfully' });
     })
 });
 
 app.get("/", (req, res) => {
-    let data = req.body.data;
-    res.send(`Hello World!`);
-    res.send(JSON.stringify(data));
+	res.json({ message: 'Hello World!' });
 });
 
-app.listen(port);
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+});
+
+
+app.listen(port () => {console.log(`Server is running on port ${port}`)});
 
 
 
