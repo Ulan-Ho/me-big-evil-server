@@ -10,7 +10,7 @@ app.use(cors());
 app.post("/dimash", ( req, res) => {
     const data = req.body.data;
     NodeGoogleSheets('gefest.json', '1PL8ZJvqyhrbjFU71UDopAPqA7847Rq2yFIVEW6OcbbA', {append: 'door', 
-        change: [[data['name'], data['number'],  data['city'], data['email'], data['message'], new Date]]}, (data) => {
+        change: [[data['name'], data['number'],  data['city'], data['message'], new Date]]}, (data) => {
         console.log(data);
     })
 });
