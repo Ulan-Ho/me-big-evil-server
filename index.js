@@ -88,7 +88,7 @@ app.use(cors());
 app.post("/", ( req, res) => {
     const data = req.body.data;
     NodeGoogleSheets('gefest.json', '1ffP-WgroNDZAe_quSbANlUTocbL7JSpryuq5JZm-xY4', {append: 'BootcampIlyat', 
-        change: [[data['name'], data['number'], data['age'], data['city'] new Date]]}, (data) => {
+        change: [[data['name'], data['number'], data['age'], data['city'], new Date()]]}, (data) => {
         console.log(data);
 	res.json({ success: true, message: 'Data added successfully' });
     })
