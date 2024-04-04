@@ -3,7 +3,8 @@ const express = require("express"),
   { urlencoded, json } = require("body-parser"),
   app = express().use(bodyParser.json());
 
-const cors = require("cors")
+const cors = require("cors");
+const port = 3000;
  
 app.post("/webhook", (req, res) => {
 	let body = req.body;
