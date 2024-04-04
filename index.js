@@ -2,7 +2,8 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   { urlencoded, json } = require("body-parser"),
   app = express().use(bodyParser.json());
-  
+
+const cors = require("cors")
  
 app.post("/webhook", (req, res) => {
 	let body = req.body;
