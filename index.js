@@ -6,92 +6,13 @@ const express = require("express"),
 const cors = require('cors');
 const { google } = require("googleapis");
 const port = 3000;
- 
-app.post("/webhook", (req, res) => {
-	let body = req.body;
-  
-	console.log(`\u{1F7EA} Received webhook:`);
-	console.dir(body, { depth: null });
-	if (body.object === "page") {
-		// Returns a '200 OK' response to all requests
-		res.status(200).send("EVENT_RECEIVED");
-	} else {
-
-	}
-});
-
-app.get("/messaging-webhook", (req, res) => {
-  
-	// Parse the query params
-	  let mode = req.query["hub.mode"];
-	  let token = req.query["hub.verify_token"];
-	  let challenge = req.query["hub.challenge"];
-	
-	  // Check if a token and mode is in the query string of the request
-	  if (mode && token) {
-		// Check the mode and token sent is correct
-		if (mode === "subscribe" && token === config.verifyToken) {
-		  // Respond with the challenge token from the request
-		  console.log("WEBHOOK_VERIFIED");
-		  res.status(200).send(challenge);
-		} else {
-		  // Respond with '403 Forbidden' if verify tokens do not match
-		  res.sendStatus(403);
-		}
-	  }
-	});
-
-
-
-
-
-	function verifyRequestSignature(req, res, buf) {
-		var signature = req.headers["x-hub-signature-256"];
-	  
-		if (!signature) {
-		  console.warn(`Couldn't find "x-hub-signature-256" in headers.`);
-		} else {
-		  var elements = signature.split("=");
-		  var signatureHash = elements[1];
-		  var expectedHash = crypto
-			.createHmac("sha256", config.appSecret)
-			.update(buf)
-			.digest("hex");
-		  if (signatureHash != expectedHash) {
-			throw new Error("Couldn't validate the request signature.");
-		  }
-		}
-	  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.use(cors());
 
-// app.post("/dimash", ( req, res) => {
-//     const data = req.body.data;
-//     NodeGoogleSheets('gefest.json', '1PL8ZJvqyhrbjFU71UDopAPqA7847Rq2yFIVEW6OcbbA', {append: 'door', 
-//         change: [[data['name'], data['number'],  data['city'], data['message'], new Date]]}, (data) => {
-//         console.log(data);
-//     })
-// });
-
-
 app.post("/", ( req, res) => {
     const data = req.body.data;
-    NodeGoogleSheets('gefest.json', '1ffP-WgroNDZAe_quSbANlUTocbL7JSpryuq5JZm-xY4', {append: 'BootcampIlyat', 
-        change: [[data['name'], data['number'], data['age'], data['city'], new Date()]]}, (data) => {
+    NodeGoogleSheets('gefest.json', '1COhLngcTL7CMx0Mc6Tvrud3NqxNShKQISaBAv4DZxQw', {append: 'Города', 
+        change: [[data['name'], data['email'], data['number'], data['apartment'], data['time'] new Date()]]}, (data) => {
         console.log(data);
 	res.json({ success: true, message: 'Data added successfully' });
     })
