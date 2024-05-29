@@ -1,99 +1,83 @@
-const express = require("express"),
-  bodyParser = require("body-parser"),
-  { urlencoded, json } = require("body-parser"),
-  app = express().use(bodyParser.json());
-
-const cors = require('cors');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const { google } = require("googleapis");
+
+const app = express();
 const port = 3000;
 
-app.use(cors());
+// Настройка CORS
+app.use(cors({
+  origin: 'https://accessible-others-000198.framer.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
+}));
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://accessible-others-000198.framer.app');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-});
+app.use(bodyParser.json());
 
-app.post("/", ( req, res) => {
-    const data = req.body.data;
-    NodeGoogleSheets('gefest.json', '1COhLngcTL7CMx0Mc6Tvrud3NqxNShKQISaBAv4DZxQw', {append: 'city', 
-        change: [[data['name'], data['email'], data['number'], data['apartment'], data['time'], new Date()]]}, (data) => {
-        console.log(data);
-	res.json({ success: true, message: 'Data added successfully' });
-    })
+app.post("/", (req, res) => {
+  const data = req.body.data;
+  NodeGoogleSheets('gefest.json', '1COhLngcTL7CMx0Mc6Tvrud3NqxNShKQISaBAv4DZxQw', {
+    append: 'city',
+    change: [[data['name'], data['email'], data['number'], data['apartment'], data['time'], new Date()]]
+  }, (result) => {
+    console.log(result);
+    res.json({ success: true, message: 'Data added successfully' });
+  });
 });
 
 app.get("/", (req, res) => {
-	res.json({ message: 'Hello World!' });
+  res.json({ message: 'Hello World!' });
 });
 
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  console.error(err.stack);
+  res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
-
 
 app.listen(port, () => {
-	console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
 
-
-
-
 function NodeGoogleSheets(file, sheetId, keyMass, fun) {
-	const auth = new google.auth.GoogleAuth({
-		keyFile: file,
-		scopes: "https://www.googleapis.com/auth/spreadsheets",
-	});
-	//
-	(async () => {
-		const client = await auth.getClient();
-		//
-		const googleSheets = google.sheets({ version: "v4", auth: client });
-		//
-		const spreadsheetId = sheetId;
-		//
-		const metaData = await googleSheets.spreadsheets.get({
-			auth,
-			spreadsheetId,
-		});
-		//
-		const data = {
-			auth,
-			spreadsheetId,
-			valueInputOption: "USER_ENTERED",
-			resource: {
-				values: keyMass.change,
-			},
-		}
-		//
-		if(keyMass.append) {
-			data['range'] = keyMass.append;
-			//
-			const append = await googleSheets.spreadsheets.values.append(data);
-			//
-			fun(append);
-		} else if(keyMass.values) {
-			data['range'] = keyMass.values;
-			//
-			delete data.valueInputOption; delete data.resource;
-			//
-			const values = await googleSheets.spreadsheets.values.get(data);
-			//
-			fun(values); 
-		} else if(keyMass.update) {
-			data['range'] = keyMass.update;
-			//
-			const update = await googleSheets.spreadsheets.values.update(data);
-			//
-			fun(update);
-		}
-	})();
+  const auth = new google.auth.GoogleAuth({
+    keyFile: file,
+    scopes: "https://www.googleapis.com/auth/spreadsheets",
+  });
+
+  (async () => {
+    try {
+      const client = await auth.getClient();
+      const googleSheets = google.sheets({ version: "v4", auth: client });
+      const spreadsheetId = sheetId;
+
+      const data = {
+        auth,
+        spreadsheetId,
+        valueInputOption: "USER_ENTERED",
+        resource: {
+          values: keyMass.change,
+        },
+      };
+
+      if (keyMass.append) {
+        data['range'] = keyMass.append;
+        const append = await googleSheets.spreadsheets.values.append(data);
+        fun(append);
+      } else if (keyMass.values) {
+        data['range'] = keyMass.values;
+        delete data.valueInputOption;
+        delete data.resource;
+        const values = await googleSheets.spreadsheets.values.get(data);
+        fun(values);
+      } else if (keyMass.update) {
+        data['range'] = keyMass.update;
+        const update = await googleSheets.spreadsheets.values.update(data);
+        fun(update);
+      }
+    } catch (error) {
+      console.error('Error accessing Google Sheets:', error);
+      fun({ error });
+    }
+  })();
 }
-//
-// NodeGoogleSheets('gefest.json', '1zaLPRFEvmWHo9X5h5g4m82OR-1054RRVcBw9pslhgvM', {append: 'betaList', 
-// change: [['Ulan', 'Abdikadyr', '8 777 77 77 777']]}, (data) => {
-// 	console.log(data);
-// })
