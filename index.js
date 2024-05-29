@@ -12,7 +12,7 @@ app.use(cors());
 app.post("/", ( req, res) => {
     const data = req.body.data;
     NodeGoogleSheets('gefest.json', '1COhLngcTL7CMx0Mc6Tvrud3NqxNShKQISaBAv4DZxQw', {append: 'city', 
-        change: [[data['name'], data['email'], data['number'], data['apartment'], data['time'] new Date()]]}, (data) => {
+        change: [[data['name'], data['email'], data['number'], data['apartment'], data['time'], new Date()]]}, (data) => {
         console.log(data);
 	res.json({ success: true, message: 'Data added successfully' });
     })
