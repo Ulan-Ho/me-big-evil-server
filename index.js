@@ -7,9 +7,10 @@ const app = express();
 const port = 3000;
 
 const corsOptions = {
-  origin: 'https://accessible-others-000198.framer.app', // Укажите ваш домен
-  methods: ['GET', 'POST'], // Разрешенные методы
-  allowedHeaders: ['Content-Type'], // Разрешенные заголовки
+  origin: 'https://accessible-others-000198.framer.app',
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true
 };
 
 app.use(express.json());
