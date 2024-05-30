@@ -6,8 +6,14 @@ const { google } = require("googleapis");
 const app = express();
 const port = 3000;
 
+const corsOptions = {
+  origin: 'https://accessible-others-000198.framer.app', // Укажите ваш домен
+  methods: ['GET', 'POST'], // Разрешенные методы
+  allowedHeaders: ['Content-Type'], // Разрешенные заголовки
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 function decrypt(text, key, iv) {
 	const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key, 'hex'), Buffer.from(iv, 'hex'));
