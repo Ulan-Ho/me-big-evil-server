@@ -1,56 +1,63 @@
-const express = require("express");
-const crypto = require("crypto");
+"use strict";
+
+// const express = require("express");
+// const crypto = require("crypto");
 const cors = require("cors");
 const { google } = require("googleapis");
 
-const app = express();
-const port = 3000;
+let TelegramBot = require("node-telegram-bot-api");
+let bot = new TelegramBot(token, {polling: {interval: 300, autoStart: true}});
 
-const corsOptions = {
-  origin: 'https://accessible-others-000198.framer.app',
-  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  credentials: true
-};
 
-app.use(express.json());
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+let token = "6774522588:AAF772RFT8GAscvqVNUAs5zcwJ5EPJdqZWU";
 
-function decrypt(text, key, iv) {
-	const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key, 'hex'), Buffer.from(iv, 'hex'));
-	let decrypted = decipher.update(text, 'base64', 'utf8');
-	decrypted += decipher.final('utf8');
-	return decrypted;
+// const app = express();
+// const port = 3000;
+
+bot.on("polling_error", err => {
+  if (err.data && err.data.error) {
+      console.log(err.data.error.message);
+  } else {
+      console.log("An error occurred:", err);
+  }
+});
+
+bot.on('text', async (msg) => {
+	if(msg.text.startsWith('/start')) {
+
+        bot.sendMessage(msg.chat.id, `Давац сперва определимся зачем ты сюда пришел`, {
+            reply_markup: {
+                keybord: [
+			[`1. Хочу научиться программировать`],
+			[`2. Хочу зарабатывать`]
+		]
+            }
+        });
+	 await NodeGoogleSheets('gefest.json', '15VYU1qkpqv0KRdrsgR4WcGdllmwaLpLXAWTDSedUDpY', {append: 'Start', 
+        change: [[msg.chat.id, msg.chat.first_name , msg.chat.last_name, new Date()]]}, (data) => {
+        console.log(data);
+      });
 }
 
-app.listen(port, () => {
-	console.log(`Server is running on port ${port}`);
-});
+// app.post("/", (req, res) => {
+// 	const { data: encryptedData, key, iv } = req.body;
 
-app.get("/", (req, res) => {
-	res.json({ message: 'Hello World!' });
-});
+// 	try {
+//         const decryptedData = decrypt(encryptedData, key, iv);
+//         const parsedData = JSON.parse(decryptedData);
+// 		NodeGoogleSheets('gefest.json', '1COhLngcTL7CMx0Mc6Tvrud3NqxNShKQISaBAv4DZxQw', {
+// 			append: 'city',
+// 			change: [[parsedData['name'], parsedData['email'], parsedData['number'], parsedData['apartment'], parsedData['time'], new Date()]]
+// 		}, (result) => {
+// 			console.log(result);
+// 			res.json({ success: true, message: 'Data added successfully' });
+// 		});
 
-app.post("/", (req, res) => {
-	const { data: encryptedData, key, iv } = req.body;
-
-	try {
-        const decryptedData = decrypt(encryptedData, key, iv);
-        const parsedData = JSON.parse(decryptedData);
-		NodeGoogleSheets('gefest.json', '1COhLngcTL7CMx0Mc6Tvrud3NqxNShKQISaBAv4DZxQw', {
-			append: 'city',
-			change: [[parsedData['name'], parsedData['email'], parsedData['number'], parsedData['apartment'], parsedData['time'], new Date()]]
-		}, (result) => {
-			console.log(result);
-			res.json({ success: true, message: 'Data added successfully' });
-		});
-
-    } catch (error) {
-        console.error("Error decrypting data:", error);
-        res.status(400).send('Failed to decrypt data');
-    }
-});
+//     } catch (error) {
+//         console.error("Error decrypting data:", error);
+//         res.status(400).send('Failed to decrypt data');
+//     }
+// });
 
 function NodeGoogleSheets(file, sheetId, keyMass, fun) {
 	const auth = new google.auth.GoogleAuth({
